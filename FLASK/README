@@ -1,0 +1,27 @@
+Pre-requisitos
+Antes de comenzar, asegúrate de que la computadora destino tenga instalado:
+
+Python (versión 3.7 o superior).
+MySQL Server o cualquier herramienta que administre bases de datos MySQL como XAMPP.
+
+
+PARA INICIAR EL PROYECTO  ABRE LA TERMINAL  EN LA CARPETA DEL PROYECTO Y EJECUTA
+
+python -m venv venv
+
+Activa el entorno virtual
+En Windows
+            venv\Scripts\activate
+En macOS/Linux
+            source venv/bin/activate
+EJECUTA EN LA TERMINAL
+
+            pip install -r requirements.txt
+
+
+INICIA EL PROYECTO
+            python app.py
+
+o 
+
+            flask run
