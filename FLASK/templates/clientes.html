@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="page-title">Lista de Clientes</h1>
+<div class="actions">
+    <button class="button-primary" onclick="openModal('modalAgregarCliente')">+ Agregar Cliente</button>
+</div>
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cliente in clientes %}
+        <tr>
+            <td>{{ cliente[0] }}</td>
+            <td>{{ cliente[1] }}</td>
+            <td>{{ cliente[2] }}</td>
+            <td>
+                <button class="button-edit" onclick="openModal('modalEditarCliente{{ cliente[0] }}')">Editar</button>
+                <form method="POST" action="/clientes/eliminar/{{ cliente[0] }}" style="display:inline;">
+                    <button type="submit" class="button-delete" onclick="return confirm('¿Estás seguro de eliminar este cliente?');">Eliminar</button>
+                </form>                
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block modals %}
+<!-- Modal para agregar cliente -->
+<div id="modalAgregarCliente" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalAgregarCliente')">&times;</span>
+        <h2>Agregar Cliente</h2>
+        <form method="POST" action="/clientes/agregar">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="telefono">Teléfono:</label>
+                <input type="text" id="telefono" name="telefono" required>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="button-primary">Guardar</button>
+                <button type="button" class="button-cancel" onclick="closeModal('modalAgregarCliente')">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal para editar cliente -->
+{% for cliente in clientes %}
+<div id="modalEditarCliente{{ cliente[0] }}" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalEditarCliente{{ cliente[0] }}')">&times;</span>
+        <h2>Editar Cliente</h2>
+        <form method="POST" action="/clientes/editar/{{ cliente[0] }}">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" value="{{ cliente[1] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="telefono">Teléfono:</label>
+                <input type="text" id="telefono" name="telefono" value="{{ cliente[2] }}" required>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="button-primary">Guardar</button>
+                <button type="button" class="button-cancel" onclick="closeModal('modalEditarCliente{{ cliente[0] }}')">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

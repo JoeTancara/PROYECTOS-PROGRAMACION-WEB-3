@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ active.capitalize() }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li class="{{ 'active' if active == 'home' else '' }}">
+                    <a href="/">Inicio</a>
+                </li>
+                <li class="{{ 'active' if active == 'clientes' else '' }}">
+                    <a href="/clientes">Clientes</a>
+                </li>
+                <li class="{{ 'active' if active == 'vehiculos' else '' }}">
+                    <a href="/vehiculos">Vehículos</a>
+                </li>
+                <li class="{{ 'active' if active == 'tipos_reparacion' else '' }}">
+                    <a href="/tipos_reparacion">Tipos de Reparación</a>
+                </li>
+                <li class="{{ 'active' if active == 'reparaciones' else '' }}">
+                    <a href="/reparaciones">Reparaciones</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content">
+            {% block content %}
+            <h1>Bienvenido a {{ active.capitalize() }}</h1>
+            {% endblock %}
+        </div>
+    </div>
+
+     <div id="modals-container">
+        {% block modals %}
+ 
+        {% endblock %}
+    </div>
+
+     <script>
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+    </script>
+    <script>
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.style.display = 'flex'; // Muestra el modal
+            } else {
+                console.error(`Modal con ID "${id}" no encontrado.`);
+            }
+        }
+    
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.style.display = 'none'; // Oculta el modal
+            } else {
+                console.error(`Modal con ID "${id}" no encontrado.`);
+            }
+        }
+    </script>
+    
+</body>
+</html>

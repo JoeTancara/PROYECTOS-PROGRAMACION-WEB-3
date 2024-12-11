@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="page-title">Vehículos</h1>
+<div class="actions">
+    <button class="button-primary" onclick="openModal('modalAgregarVehiculo')">+ Agregar Vehículo</button>
+</div>
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Matrícula</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Cliente</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for vehiculo in vehiculos %}
+        <tr>
+            <td>{{ vehiculo[0] }}</td>
+            <td>{{ vehiculo[1] }}</td>
+            <td>{{ vehiculo[2] }}</td>
+            <td>{{ vehiculo[3] }}</td>
+            <td>{{ vehiculo[4] }}</td>
+            <td>
+                <button class="button-edit" onclick="openModal('modalEditarVehiculo{{ vehiculo[0] }}')">Editar</button>
+                <form method="POST" action="/vehiculos/eliminar/{{ vehiculo[0] }}" style="display:inline;">
+                    <button type="submit" class="button-delete" onclick="return confirm('¿Estás seguro de eliminar este vehículo?');">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block modals %}
+<!-- Modal para agregar vehículo -->
+<div id="modalAgregarVehiculo" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalAgregarVehiculo')">&times;</span>
+        <h2>Agregar Vehículo</h2>
+        <form method="POST" action="/vehiculos/agregar">
+            <div class="form-group">
+                <label for="matricula">Matrícula:</label>
+                <input type="text" id="matricula" name="matricula" required>
+            </div>
+            <div class="form-group">
+                <label for="marca">Marca:</label>
+                <input type="text" id="marca" name="marca" required>
+            </div>
+            <div class="form-group">
+                <label for="modelo">Modelo:</label>
+                <input type="text" id="modelo" name="modelo" required>
+            </div>
+            <div class="form-group">
+                <label for="cliente_id">Cliente:</label>
+                <select id="cliente_id" name="cliente_id" required>
+                    {% for cliente in clientes %}
+                    <option value="{{ cliente[0] }}">{{ cliente[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="button-primary">Guardar</button>
+                <button type="button" class="button-cancel" onclick="closeModal('modalAgregarVehiculo')">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modales para editar vehículos -->
+{% for vehiculo in vehiculos %}
+<div id="modalEditarVehiculo{{ vehiculo[0] }}" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalEditarVehiculo{{ vehiculo[0] }}')">&times;</span>
+        <h2>Editar Vehículo</h2>
+        <form method="POST" action="/vehiculos/editar/{{ vehiculo[0] }}">
+            <div class="form-group">
+                <label for="matricula">Matrícula:</label>
+                <input type="text" id="matricula" name="matricula" value="{{ vehiculo[1] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="marca">Marca:</label>
+                <input type="text" id="marca" name="marca" value="{{ vehiculo[2] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="modelo">Modelo:</label>
+                <input type="text" id="modelo" name="modelo" value="{{ vehiculo[3] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="cliente_id">Cliente:</label>
+                <select id="cliente_id" name="cliente_id" required>
+                    {% for cliente in clientes %}
+                    <option value="{{ cliente[0] }}" {% if cliente[0] == vehiculo[5] %}selected{% endif %}>
+                        {{ cliente[1] }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="button-primary">Guardar</button>
+                <button type="button" class="button-cancel" onclick="closeModal('modalEditarVehiculo{{ vehiculo[0] }}')">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

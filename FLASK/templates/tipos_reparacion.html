@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="page-title">Tipos de Reparación</h1>
+<div class="actions">
+    <button class="button-primary" onclick="openModal('modalAgregarTipoReparacion')">+ Agregar Tipo de Reparación</button>
+</div>
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tipo in tipos %}
+        <tr>
+            <td>{{ tipo[0] }}</td>
+            <td>{{ tipo[1] }}</td>
+            <td>
+                <button class="button-edit" onclick="openModal('modalEditarTipoReparacion{{ tipo[0] }}')">Editar</button>
+                <form method="POST" action="/tipos_reparacion/eliminar/{{ tipo[0] }}" style="display:inline;">
+                    <button type="submit" class="button-delete" onclick="return confirm('¿Estás seguro de eliminar este tipo de reparación?');">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block modals %}
+<!-- Modal para agregar tipo de reparación -->
+<div id="modalAgregarTipoReparacion" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalAgregarTipoReparacion')">&times;</span>
+        <h2>Agregar Tipo de Reparación</h2>
+        <form method="POST" action="/tipos_reparacion/agregar">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="button-primary">Guardar</button>
+                <button type="button" class="button-cancel" onclick="closeModal('modalAgregarTipoReparacion')">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal para editar tipo de reparación -->
+{% for tipo in tipos %}
+<div id="modalEditarTipoReparacion{{ tipo[0] }}" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalEditarTipoReparacion{{ tipo[0] }}')">&times;</span>
+        <h2>Editar Tipo de Reparación</h2>
+        <form method="POST" action="/tipos_reparacion/editar/{{ tipo[0] }}">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" value="{{ tipo[1] }}" required>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="button-primary">Guardar</button>
+                <button type="button" class="button-cancel" onclick="closeModal('modalEditarTipoReparacion{{ tipo[0] }}')">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
