@@ -1,0 +1,113 @@
+Operaciones para la tabla usuarios
+1. Obtener todos los usuarios
+Método: GET
+
+http://localhost/auxi-web3/API/index.php?request=usuarios
+
+2. Obtener un usuario específico
+Método: GET
+URL:
+
+http://localhost/auxi-web3/API/index.php?request=usuarios&id=1
+
+
+3. Crear un usuario
+Método: POST
+URL:
+
+http://localhost/auxi-web3/API/index.php?request=usuarios
+
+
+Content-Type: application/json
+
+{
+    "nombre": "Carlos Lopez",
+    "correo": "carlos@correo.com",
+    "telefono": "987654321"
+}
+
+
+4. Actualizar un usuario
+Método: PUT
+URL:
+
+http://localhost/auxi-web3/API/index.php?request=usuarios&id=1
+
+header
+
+Content-Type: application/json
+
+
+body
+
+{
+    "nombre": "Carlos Lopez Actualizado",
+    "correo": "carlos.actualizado@correo.com",
+    "telefono": "987654321"
+}
+
+5. Eliminar un usuario
+Método: DELETE
+URL:
+
+http://localhost/auxi-web3/API/index.php?request=usuarios&id=1
+
+
+
+Operaciones para la tabla asistencias
+1. Obtener todas las asistencias
+Método: GET
+URL
+
+http://localhost/auxi-web3/API/index.php?request=asistencias
+
+
+2. Obtener una asistencia específica
+Método: GET
+URL:
+
+http://localhost/auxi-web3/API/index.php?request=asistencias&id=1
+
+
+3. Crear una asistencia
+Método: POST
+URL:
+
+http://localhost/auxi-web3/API/index.php?request=asistencias
+
+
+Content-Type: application/json
+
+
+Body: (Selecciona "Raw" y usa formato JSON)
+{
+    "usuario_id": 2,
+    "fecha": "2024-12-12",
+    "estado": "Presente"
+}
+
+
+4. Actualizar una asistencia
+Método: PUT
+URL
+http://localhost/auxi-web3/API/index.php?request=asistencias&id=1
+
+
+Headers
+
+Content-Type: application/json
+
+
+Body: (Selecciona "Raw" y usa formato JSON)
+
+{
+    "usuario_id": 1,
+    "fecha": "2024-12-13",
+    "estado": "Ausente"
+}
+
+5. Eliminar una asistencia
+Método: DELETE
+URL:
+
+http://localhost/auxi-web3/API/index.php?request=asistencias&id=1
