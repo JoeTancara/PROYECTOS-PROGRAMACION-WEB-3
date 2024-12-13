@@ -1,0 +1,29 @@
+Prueba de todos los datos
+Realizando un all de la 
+Para ver al empleado y su asistencia
+
+        TIENE QUE ESTAR EN GET EN EL POSTMAN    */*/* NO TE OLVIDES PONER LA RUTA CORRECTA/*/*/*
+
+        http://localhost/api_postman/
+
+VER DE UN EMPLEADO EN ESPECIFICO
+        TIENE QUE ESTAR EN GET EN EL POSTMAN
+        http://localhost/api_postman/?id=1
+        
+PRA AGREGAR
+        AGREGACION EXITOSA
+        
+ACTUALIZADO CON EXITO
+    se debe realizar con los parametros
+    http://localhost/api_postman/
+    
+    {
+        "id_empleado": "1",
+        "nombre": "JOE TANCARA",
+        "cargo": "Gerente",
+        "fecha_ingreso": "2020-03-15"
+    }
+
+PARA ELIMINACION SOLO CAMBIAMOS EL id Y EL METODO DELETE
+
+    http://localhost/api_postman/?id=11
