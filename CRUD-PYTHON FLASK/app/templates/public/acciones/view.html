@@ -1,0 +1,46 @@
+{% extends 'public/layout.html' %}
+{% block title %}Registrar Plato{% endblock %}
+
+{% block body %}
+
+<section>
+    <h2>
+        <a href="/" class="left" title="Volver"><i class="bi bi-arrow-left-circle"></i></a>
+        Detalles del Plato
+        <hr>
+    </h2>
+
+    {% if (infoPlato) %}
+    
+    <!-- {{ infoPlato }} -->
+
+
+    <div class="card" style="width: 25rem;">
+      {% set urlPlato = '/static/assets/fotos_platos/' %}
+        {% if(infoPlato.foto) %}
+          <img src="{{ urlPlato }}{{ infoPlato.foto }}" class="card-img-top" alt="plato">
+        {% else %}
+          <img src="{{ urlPlato }}sin_foto.jpg" class="card-img-top sin_foto" alt="plato">
+        {% endif %}
+
+        <div class="card-body">
+          <h5 class="card-title"> <strong>{{ infoPlato.nombre }}</strong></h5>
+        </div>
+
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Procedencia: <strong>{{ infoPlato.procedencia }}</strong></li>
+          <li class="list-group-item">Receta: <strong>{{ infoPlato.receta }}</strong></li>
+        </ul>
+      </div>
+
+      {% else %}
+      <div class="col-12">
+          <h2 class="text-center">
+              No existe el Plato
+          </h2>
+      </div>
+{% endif %}
+
+</section>
+
+{% endblock %}

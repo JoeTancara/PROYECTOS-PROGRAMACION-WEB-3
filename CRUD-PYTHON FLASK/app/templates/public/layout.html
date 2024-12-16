@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crud con FLASK - PYTHON y MySQL</title>
+  <link rel="shortcut icon" href="{{url_for('static', filename='assets/imgs/favicon.png')}}" type="image/x-icon">
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/tooltip.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/custom_alert.css') }}">
+  <style>
+    /* Estilos personalizados */
+    header {
+      background: linear-gradient(45deg, #ff0000, #0000ff);
+      color: white;
+      padding: 20px 0;
+    }
+
+    footer {
+      background: linear-gradient(45deg, #2575fc, #6a11cb);
+      color: white;
+      padding: 10px 0;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .btn-primary {
+      background-color: #2575fc;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #6a11cb;
+    }
+  </style>
+</head>
+
+<body class="loader">
+
+  <!-- Header -->
+  <header>
+    <div class="container text-center">
+      <h1 class="bold-800">UNIVERSIDAD MAYOR DE SAN ANDRES</h1>
+      <h3 class="bold-800">FACULTAD DE CIENCIAS PURAS Y NATURALES</h3>
+      <h3 class="bold-800">CARRERA DE INFORMÁTICA</h3>
+    </div>
+  </header>
+
+  <!-- Navbar -->
+  {% include 'public/navbar.html' %}
+  {% include 'public/alerta.html' %}
+
+  <!-- Contenido Principal -->
+  <div class="container text-center">
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <h2 class="mt-4 bold-800">PROGRAMACIÓN WEB III - GESTIÓN DE PLATOS  </h2>
+        <hr>
+      </div>
+    </div>
+
+    {% block body %}
+
+    <div class="row">
+      <div class="col-md-12">
+        <a href="{{ url_for('addPlato') }}" title="Registrar nuevo Plato" class="btn btn-primary btn-lg btn-block btn-sm mb-2" style="float:right">
+          <i class="bi bi-egg-fried"></i> Nuevo Registro
+        </a>
+      </div>
+    </div>
+
+    {% include 'public/acciones/lista.html' %}
+
+    {% endblock %}
+  </div>
+
+  <!-- Footer -->
+  <footer class="text-center">
+    <div class="container">
+      <p>&copy; 2024 JoeDev. Todos los derechos reservados. | <a href="https://github.com/JoeTancara">GitHub</a></p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+  <script src="{{ url_for('static', filename='assets/js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/js/alerta.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/js/loader.js') }}"></script>
+  <script>
+    function eliminarPlatoJavaScript(id) {
+      const idR = document.querySelector('#id_' + id);
+      const nombreFoto = idR.dataset.foto;
+      const li = document.querySelector('#Registro_' + id);
+      const urlForm = "{{ url_for('formViewBorrarPlato') }}";
+
+      $.ajax({
+        type: "POST",
+        data: { id, nombreFoto },
+        url: urlForm,
+        success: function (resp) {
+          console.log(resp);
+          if (resp == 1) {
+            li.remove(); // remuevo el registro desde la lista
+            mensajeAlerta(msg = 'Registro Eliminado con éxito.', tipo = 1);
+          } else {
+            console.log('Error al intentar borrar el plato');
+          }
+        }
+      });
+    }
+  </script>
+
+</body>
+
+</html>
