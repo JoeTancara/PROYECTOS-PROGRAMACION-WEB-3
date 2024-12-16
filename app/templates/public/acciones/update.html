@@ -1,0 +1,63 @@
+{% extends 'public/layout.html' %}
+{% block title %}Actualizar Plato{% endblock %}
+
+{% block body %}
+
+<section>
+    <h2>
+        <a href="/" class="left" title="Volver"><i class="bi bi-arrow-left-circle"></i></a>
+        Actualizar Información del Plato
+        <hr>
+    </h2>
+
+    {% if (dataInfo) %}
+      <form action="{{ url_for('formActualizarPlato', idPlato = dataInfo.id ) }}" method="POST" class="mb-3" autocomplete="off" enctype="multipart/form-data">
+        <input type="text" class="form-control" name="id" value="{{ dataInfo.id }}" required hidden>
+        
+        <div class="row">
+            <div class="col">
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre" value="{{ dataInfo.nombre }}" class="form-control">
+            </div>
+            <div class="col">
+                <label for="procedencia">Procedencia</label>
+                <input type="text" name="procedencia" value="{{ dataInfo.procedencia }}" class="form-control">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label for="receta">Receta</label>
+                <textarea name="receta" class="form-control">{{ dataInfo.receta }}</textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            {% set urlPlato = '/static/assets/fotos_platos/' %}
+            <div class="col-md-6">
+                {% if(dataInfo.foto !="") %}
+                        <img src="{{ urlPlato }}{{ dataInfo.foto }}" class="foto_update" alt="{{ dataInfo.nombre }}">
+                    {% else %}
+                        <img src="{{ urlPlato }}sin_foto.jpg" class="foto_update" alt="plato">
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <label for="foto">Cambiar Foto del Plato</label>
+                <input type="file" name="foto" class="form-control-file" accept="image/*">
+            </div>
+        </div>
+        <hr>
+        <input class="button-primary mt-3 btn btn-info btn-block bold" type="submit" value="Guardar Actualización">
+    </form>
+
+      {% else %}
+      <div class="col-12">
+          <h2 class="text-center">
+              No existe el Plato
+          </h2>
+      </div>
+{% endif %}
+
+</section>
+
+{% endblock %}
