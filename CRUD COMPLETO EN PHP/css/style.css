@@ -1,0 +1,33 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+header, footer {
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 47%, rgba(255,0,0,1) 100%);
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+nav {
+    background-color: #000;
+    padding: 10px;
+    text-align:center;
+}
+nav a {
+    
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+
+}
+nav a:hover {
+    background-color: #777;
+}
+
+footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
